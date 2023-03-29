@@ -16,7 +16,7 @@
  * @template T the type of the action's `type` tag.
  */
 export interface Action<T = any> {
-  type: T
+    type: T;
 }
 
 /**
@@ -26,8 +26,8 @@ export interface Action<T = any> {
  * having an index signature.
  */
 export interface AnyAction extends Action {
-  // Allows any extra properties to be defined in an action.
-  [extraProps: string]: any
+    // Allows any extra properties to be defined in an action.
+    [extraProps: string]: any;
 }
 
 /* action creators */
@@ -50,12 +50,12 @@ export interface AnyAction extends Action {
  * @template A Returned action type.
  */
 export interface ActionCreator<A, P extends any[] = any[]> {
-  (...args: P): A
+    (...args: P): A;
 }
 
 /**
  * Object whose values are action creator functions.
  */
 export interface ActionCreatorsMapObject<A = any, P extends any[] = any[]> {
-  [key: string]: ActionCreator<A, P>
+    [key: string]: ActionCreator<A, P>;
 }

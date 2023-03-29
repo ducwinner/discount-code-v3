@@ -1,7 +1,7 @@
-import { SELECTORS } from "./selectors";
+import { SELECTORS } from './selectors';
 
 export function searchProducts(ids: number[]): Promise<Response> {
-    const url = encodeURI(`search.js?q=${ids.map(item => `id:"${item}"`).join(' OR ')}&view=bss.b2b`);
+    const url = encodeURI(`search.js?q=${ids.map((item) => `id:"${item}"`).join(' OR ')}&view=bss.b2b`);
     return fetch(url);
 }
 
@@ -35,10 +35,7 @@ export function detectProducts(customAttr: string | null): number[] | null {
         }
     }
 
-    if (
-        elements.length > 0
-        || window.BSS_B2B.cp.firstLoad
-    ) {
+    if (elements.length > 0 || window.BSS_B2B.cp.firstLoad) {
         window.BSS_B2B.cp.firstLoad = false;
     } else {
         return null;
@@ -47,9 +44,9 @@ export function detectProducts(customAttr: string | null): number[] | null {
     elements.forEach((item) => {
         item.setAttribute('bss-b2b-product-active', 'true');
     });
-    
+
     const productIds = [];
-    const check = new Map<string, boolean>;
+    const check = new Map<string, boolean>();
     for (const element of elements) {
         const isLoginPattern = element.querySelector('.bsscommerce-ltsp-message');
         if (isLoginPattern) {
@@ -94,7 +91,7 @@ export function detectProducts(customAttr: string | null): number[] | null {
 export function detectCartItems() {
     const cartData = window.BSS_B2B.shopData.cart;
     const productIds = [];
-    const check = new Map<number, boolean>;
+    const check = new Map<number, boolean>();
 
     cartData.items.forEach((item) => {
         const productId = item.product_id;

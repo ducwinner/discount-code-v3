@@ -11,6 +11,18 @@ export interface Page {
     readonly isSearchPage: boolean;
 }
 
+export interface Cart {
+
+}
+
+export interface MiniCart extends Cart {
+
+}
+
+export interface MainCart extends Cart {
+    
+}
+
 export interface ShopifyResource {
     id: number | string;
 }
@@ -43,5 +55,3 @@ export interface OldOptions {
 }
 
 export type Options = OldOptions | V3Options;
-
-

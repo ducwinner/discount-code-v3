@@ -1,8 +1,8 @@
-import { Dispatch } from './store'
+import { Dispatch } from './store';
 
 export interface MiddlewareAPI<D extends Dispatch = Dispatch, S = any> {
-  dispatch: D
-  getState(): S
+    dispatch: D;
+    getState(): S;
 }
 
 /**
@@ -20,11 +20,9 @@ export interface MiddlewareAPI<D extends Dispatch = Dispatch, S = any> {
  *   installed.
  */
 export interface Middleware<
-  _DispatchExt = {}, // TODO: remove unused component (breaking change)
-  S = any,
-  D extends Dispatch = Dispatch
+    _DispatchExt = {}, // TODO: remove unused component (breaking change)
+    S = any,
+    D extends Dispatch = Dispatch
 > {
-  (api: MiddlewareAPI<D, S>): (
-    next: D
-  ) => (action: D extends Dispatch<infer A> ? A : never) => any
+    (api: MiddlewareAPI<D, S>): (next: D) => (action: D extends Dispatch<infer A> ? A : never) => any;
 }

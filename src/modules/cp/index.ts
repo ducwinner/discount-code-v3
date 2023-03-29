@@ -1,4 +1,3 @@
-
 function init() {
     if (!window.BSS_B2B.cp.status) {
         return;
