@@ -1,4 +1,5 @@
 import { Page, ShopifyCollection, ShopifyProduct } from './common';
+import { Product } from './global';
 import { BOGO, CP, DC, EF, MC, OL, QB, QI, RF, SR, TD, TE } from './modules';
 import { Store } from './redux/store';
 
@@ -19,6 +20,7 @@ declare global {
         bssGeoServiceUrl?: string;
         BSS_B2B: {
             State: Store;
+            ProductManager: Map<number, Product>;
 
             storeId: number;
             countryCode: string;

@@ -1,4 +1,13 @@
+import Hook from '../hooks';
 import { QUICKVIEW_PATTERNS } from './quickview';
+
+class Variant extends Hook {
+
+    getElement(customAttr?: string) {
+        //
+        let variantElement: Element | null;
+    }
+}
 
 export function getVariantElement(customAttr: string | null) {
     let variantElement: Element | null;

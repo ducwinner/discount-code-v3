@@ -1,5 +1,23 @@
+export type AnyFunction = (...args: any[]) => any;
+export type HookActions = {
+    [tag: string]: Array<AnyFunction[]>;
+};
+
+export interface HookFilters {
+    [tag: string]: Array<AnyFunction[]>;
+}
+
+export interface HookStatics {
+    [tag: string]: Array<AnyFunction[]>;
+}
+
+export interface Hook {
+    actions: HookActions;
+    filters: HookFilters;
+}
 export interface Module {
     readonly code: string;
+    hooks?: Hook;
     status: boolean;
 }
 

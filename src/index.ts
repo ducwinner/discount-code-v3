@@ -1,5 +1,4 @@
-import { load } from './loader';
-import { loadScript } from './utils/common';
+import * as Loader from './loader';
 
 (function runScript() {
     if (typeof window.BSS_B2B === 'undefined') {
@@ -11,14 +10,9 @@ import { loadScript } from './utils/common';
         if (shopDataElement) {
             window.BSS_B2B.shopData = JSON.parse(shopDataElement.innerText);
         }
+        Loader.load();
     } catch (e) {
         console.log('[bss.b2b]', 'could not get shop data');
         return;
     }
-    loadScript('https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.1/redux.min.js', function () {
-        if (typeof window.Redux !== 'undefined' && typeof window.Redux.createStore === 'function') {
-            window.BSS_B2B.State = window.Redux.createStore();
-            load();
-        }
-    });
 })();

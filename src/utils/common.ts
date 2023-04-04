@@ -88,3 +88,8 @@ export function getFeaturedProductMetafields(): any {
     }
     return featuredProduct;
 }
+
+export function searchProducts(ids: number[]): Promise<Response> {
+    const url = encodeURI(`search.js?q=${ids.map((item) => `id:"${item}"`).join(' OR ')}&view=bss.b2b`);
+    return fetch(url);
+}

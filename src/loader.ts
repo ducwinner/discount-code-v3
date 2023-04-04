@@ -10,7 +10,7 @@ import * as RF from './modules/rf';
 import * as SR from './modules/sr';
 import * as TD from './modules/td';
 import * as TE from './modules/te';
-import { run } from './runner';
+import * as Runner from './runner';
 
 async function load() {
     window.BSS_B2B.countryCode = '';
@@ -70,10 +70,10 @@ async function load() {
                 window.BSS_B2B.log(err);
             })
             .finally(() => {
-                run();
+                Runner.run();
             });
     } else {
-        run();
+        Runner.run();
     }
 }
 
