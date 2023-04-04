@@ -1,6 +1,6 @@
 import { loadScript, remove } from "../utils/common";
 
-export function prePriceFlow() {
+export function PriceFlowPreAction_Setup() {
     if (
         [437, 3787, 4497, 8553].indexOf(window.BSS_B2B.storeId) !== -1 &&
         window.BSS_B2B.shopData.customer.id === null
@@ -53,4 +53,8 @@ export function prePriceFlow() {
             teElements.forEach((item) => item.remove());
         }
     }
+}
+
+export function PriceFlowPreFilter_CustomAttr(): string | null {
+    return null;
 }

@@ -1,10 +1,8 @@
 import { ShopifyProduct } from '../../types/common';
 import { searchProducts } from '../../utils/common';
-import { detectProducts } from './detector';
 import getAppliedRules from './get-applied-rules';
 
-export default function changePrice(customAttr: string | null, cartFormElement: string | null, isQuickview: boolean) {
-    const productIds = detectProducts(customAttr);
+export default function changePrice(productIds: number[] | null) {
     if (!productIds || productIds.length === 0) {
         //
     } else {
@@ -49,6 +47,7 @@ export default function changePrice(customAttr: string | null, cartFormElement: 
                 // change price
                 return Promise.allSettled(priceLists.map(priceList => {
                     //
+                    console.log(priceList)
                 }));
             })
             .catch((error) => {
