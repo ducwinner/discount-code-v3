@@ -6,21 +6,19 @@ import { avoidDetect } from "../extensions/intergate/BSSLogin";
 class Detector extends Hook {
 
     detectProducts(customAttr: string | null): number[] | null {
-        let elements: NodeListOf<Element> | Array<Element>;
+        let elements: NodeListOf<Element>;
         if (customAttr) {
             elements = this.execFilter('DetectProducts/CustomAttr', elements, customAttr);
         } else {
             elements = document.querySelectorAll(SELECTORS);
         }
     
-        if (elements) {
-            elements = Array.from(elements);
-        } else {
+        if (!elements || !elements.length) {
             return null;
         }
     
         if (window.BSS_B2B.storeId === 1222) {
-            if (elements.every((item) => !item.closest('.ajax-cart__price'))) {
+            if (Array.prototype.slice.call(elements).every((item) => !item.closest('.ajax-cart__price'))) {
                 return null;
             }
         }

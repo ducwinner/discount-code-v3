@@ -2,7 +2,7 @@
     "version": "1.0.0",
     "compilerOptions": {
         "outDir": "./dist",
-        "lib": ["ES5", "ES2016","DOM", "ES2018.Promise"],
+        "lib": ["ES5", "ES2016","DOM", "ES2018.Promise", "DOM.Iterable"],
         "allowJs": true,
         "sourceMap": true,
         "target": "ES6",
