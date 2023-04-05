@@ -1,7 +1,11 @@
+import { Hook } from "../../types/hook";
+import { ModuleCode } from "../../types/modules/_interface";
+import { IModuleDC } from '../../types/modules/dc';
+
 import { toLowerCase } from '../../utils/common';
 import { getCart, search, updateCart } from '../../utils/shopify';
 
-function init() {
+export function init() {
     if (!window.BSS_B2B.status) {
         return;
     }
@@ -21,10 +25,10 @@ function init() {
                         const proId = item.product_id;
                         if (handles.indexOf(proId) === -1) {
                             handles.push(proId);
-                            handleURLs.push('id:"' + proId + '"');
+                            handleURLs.push(`id:"` + proId + `"`);
                         }
                     }
-                    search(handleURLs.join(' OR '))
+                    search(handleURLs.join(` OR `))
                         .then((response) => response.json())
                         .then((data) => {
                             const responseProducts = data;
@@ -52,10 +56,10 @@ function init() {
                                     cpRules: window.BSS_B2B.cp.rules,
                                 };
 
-                                fetch(window.bssB2BApiServer + '/dc/check-discount-code', {
-                                    method: 'POST',
+                                fetch(window.bssB2BApiServer + `/dc/check-discount-code`, {
+                                    method: `POST`,
                                     headers: {
-                                        'Content-Type': 'application/json',
+                                        'Content-Type': `application/json`,
                                     },
                                     body: JSON.stringify(checkData),
                                 })
@@ -67,20 +71,20 @@ function init() {
                                                 return;
                                             }
                                             document
-                                                .querySelectorAll('#bss-b2b-discount-code-input')
+                                                .querySelectorAll(`#bss-b2b-discount-code-input`)
                                                 .forEach((item) => {
-                                                    item.setAttribute('discount-code', 'true');
+                                                    item.setAttribute(`discount-code`, `true`);
                                                 });
                                             document
-                                                .querySelectorAll('#bss-b2b-discount-code-applied-wrapper')
+                                                .querySelectorAll(`#bss-b2b-discount-code-applied-wrapper`)
                                                 .forEach((item) => {
                                                     item.innerHTML =
-                                                        '<div id="bss-b2b-discount-code-applied">' +
-                                                        '<span>' +
+                                                        `<div id="bss-b2b-discount-code-applied">` +
+                                                        `<span>` +
                                                         discountCode +
-                                                        '</span>' +
-                                                        '<div id="bss-b2b-clear-discount-code">X</div>' +
-                                                        '</div>';
+                                                        `</span>` +
+                                                        `<div id="bss-b2b-clear-discount-code">X</div>` +
+                                                        `</div>`;
                                                 });
                                             const listKeysItemAppliedDC = data.listKeysItemAppliedDC;
                                             data.listProductIdsAppliedDC.forEach(function (productId) {
@@ -117,23 +121,23 @@ function init() {
     };
 
     window.BSS_B2B.dc.handleRemoveCode = function () {
-        const clearDiscountCodeBtn = document.getElementById('bss-b2b-clear-discount-code');
-        clearDiscountCodeBtn.addEventListener('click', (event) => {
+        const clearDiscountCodeBtn = document.getElementById(`bss-b2b-clear-discount-code`);
+        clearDiscountCodeBtn.addEventListener(`click`, (event) => {
             event.preventDefault();
 
-            const messageDiscountCodes = document.querySelectorAll('#bss-b2b-discount-code-message');
-            const discountCodeInputs = document.querySelectorAll('#bss-b2b-discount-code-input');
-            const discountCodesApplied = document.querySelectorAll('#bss-b2b-discount-code-applied-wrapper');
+            const messageDiscountCodes = document.querySelectorAll(`#bss-b2b-discount-code-message`);
+            const discountCodeInputs = document.querySelectorAll(`#bss-b2b-discount-code-input`);
+            const discountCodesApplied = document.querySelectorAll(`#bss-b2b-discount-code-applied-wrapper`);
 
             if (messageDiscountCodes.length && discountCodeInputs.length && discountCodesApplied.length) {
                 for (let j = 0; j < messageDiscountCodes.length; j++) {
                     const messageDiscountCode = messageDiscountCodes[j];
                     const discountCodeInput = discountCodeInputs[j];
                     const discountCodeApplied = discountCodesApplied[j];
-                    (discountCodeInput as HTMLInputElement).value = '';
-                    discountCodeInput.removeAttribute('discount-code');
-                    discountCodeApplied.innerHTML = '';
-                    messageDiscountCode.innerHTML = '';
+                    (discountCodeInput as HTMLInputElement).value = ``;
+                    discountCodeInput.removeAttribute(`discount-code`);
+                    discountCodeApplied.innerHTML = ``;
+                    messageDiscountCode.innerHTML = ``;
                 }
             }
             updateCart({
@@ -174,15 +178,15 @@ function init() {
                             isShowDiscountBox = true;
                         }
                     } else if (applyTo === 3) {
-                        const customerIdsRule = rule.customer_ids.split(',');
+                        const customerIdsRule = rule.customer_ids.split(`,`);
 
-                        if (customerIdsRule.includes(customerId + '')) {
+                        if (customerIdsRule.includes(customerId + ``)) {
                             isShowDiscountBox = true;
                         } else {
                             isShowDiscountBox = false;
                         }
                     } else if (applyTo === 4) {
-                        const customerTagsRule: string[] = rule.customer_tags.split(',');
+                        const customerTagsRule: string[] = rule.customer_tags.split(`,`);
                         const checkArray = customerTagsRule.filter((tag) => customerTags.includes(tag.toLowerCase()));
                         if (checkArray.length === 0) {
                             isShowDiscountBox = false;
@@ -199,15 +203,28 @@ function init() {
         }
 
         if (isShowDiscountBox) {
-            document.querySelectorAll('.bss-b2b-discount-code-wrapper').forEach((item) => {
-                (item as HTMLElement).style.display = 'inline-grid';
+            document.querySelectorAll(`.bss-b2b-discount-code-wrapper`).forEach((item) => {
+                (item as HTMLElement).style.display = `inline-grid`;
             });
         } else {
-            document.querySelectorAll('.bss-b2b-discount-code-wrapper').forEach((item) => {
+            document.querySelectorAll(`.bss-b2b-discount-code-wrapper`).forEach((item) => {
                 item.remove();
             });
         }
     };
 }
 
-export { init };
+export default class ModuleDC extends Hook implements IModuleDC {
+    readonly code: ModuleCode = `dc`;
+    status: boolean;
+    
+    constructor(status?: boolean) {
+        super();
+        this.status = !!status;
+    }
+
+    async init(): Promise<void> {
+        throw new Error(`Method not implemented.`);
+    }
+}
+

@@ -1,4 +1,3 @@
-
 export function detectProductsCustomAttr(customAttr: string | null): NodeListOf<Element> | Array<Element> {
     let elements: NodeListOf<Element> | Array<Element>;
     if ((window.BSS_B2B.storeId === 2693 || window.BSS_B2B.storeId === 4342) && window.BSS_B2B.page.isProductPage) {

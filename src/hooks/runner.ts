@@ -1,4 +1,4 @@
-import { loadScript, remove } from "../utils/common";
+import { loadScript, remove } from '../utils/common';
 
 export function PriceFlowPreAction_Setup() {
     if (
@@ -9,9 +9,9 @@ export function PriceFlowPreAction_Setup() {
     }
 
     if (window.BSS_B2B.cp.status) {
-        if (window.BSS_B2B.storeId === 3041 && window.location.pathname === '/cart') {
+        if (window.BSS_B2B.storeId === 3041 && window.location.pathname === `/cart`) {
             const checkoutButtons = document.querySelectorAll(
-                '.cart-wrapper__inner .card__section button[name="checkout"]'
+                `.cart-wrapper__inner .card__section button[name="checkout"]`
             );
             checkoutButtons.forEach(remove);
         }
@@ -38,7 +38,7 @@ export function PriceFlowPreAction_Setup() {
         }
     }
     if (window.BSS_B2B.mc.status) {
-        loadScript('https://cdn.shopify.com/s/javascripts/currencies.js', window.BSS_B2B.mc.onLoad);
+        loadScript(`https://cdn.shopify.com/s/javascripts/currencies.js`, window.BSS_B2B.mc.onLoad);
     }
 
     // start helper ?
