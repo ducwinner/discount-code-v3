@@ -1,20 +1,29 @@
-import { IModuleCP } from "./cp";
+import ModuleBOGO from "./bogo";
+import ModuleCP from "./cp";
+import ModuleDC from "./dc";
+import ModuleEF from "./ef";
+import ModuleMC from "./mc";
+import ModuleOL from "./ol";
+import ModuleQB from "./qb";
+import ModuleQI from "./qi";
+import ModuleRF from "./rf";
+import ModuleSR from "./sr";
+import ModuleTD from "./td";
+import ModuleTE from "./te";
 
-export type ModuleMap = {
-    bogo?: any;
-    cp?: any;
-    dc?: any;
-    ef?: any;
-    mc?: any;
-    ol?: any;
-    qb?: any;
-    qi?: any;
-    rf?: any;
-    sr?: any;
-    td?: any;
-    te?: any;
+type ModuleMap = {
+    bogo: ModuleBOGO;
+    cp: ModuleCP;
+    dc: ModuleDC;
+    ef: ModuleEF;
+    mc: ModuleMC;
+    ol: ModuleOL;
+    qb: ModuleQB;
+    qi: ModuleQI;
+    rf: ModuleRF;
+    sr: ModuleSR;
+    td: ModuleTD;
+    te: ModuleTE;
 }
 
-export type ModuleManager = {
-    cp: IModuleCP;
-}
+export default ModuleMap;

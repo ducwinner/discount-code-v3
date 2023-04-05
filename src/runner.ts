@@ -1,10 +1,13 @@
-import * as Page from './aspects/page';
-import { PriceFlowPreAction_Setup, PriceFlowPreFilter_CustomAttr } from './hooks/runner';
-import { Hook } from './types/hook';
-import detector from './utils/detector';
+import Page from './page';
+import { IHookable } from './types/interfaces';
+import installHook from './utils/installHook';
 
-class Runner extends Hook {
-    private runPriceFlow() {
+interface IRunner extends IHookable {
+    runPriceFlow(): Promise<void>;
+    runCustomerFlow(): void;
+}
+const Runner: IRunner = {
+    async runPriceFlow() {
         // pre-hook
         this.execAction(`PriceFlow/Pre`);
         const customAttr = this.execFilter(`PriceFlowPre`, null);
@@ -12,24 +15,18 @@ class Runner extends Hook {
         const productIds = detector.detectProducts(customAttr);
         console.log(productIds);
         // post-hook
-    }
-
-    private runCustomerFlow() {
+    },
+    runCustomerFlow() {
         //
-    }
-
-    run() {
-        window.BSS_B2B.log(`run script`);
-        Page.init();
-        Promise.allSettled([this.runPriceFlow(), this.runCustomerFlow()]);
-    }
+    },
 }
 
-function run() {
-    const runner = new Runner();
-    runner.addAction(`PriceFlow/Pre`, PriceFlowPreAction_Setup, 0);
-    runner.addFilter(`PriceFlow/Pre`, PriceFlowPreFilter_CustomAttr, 0);
-    runner.run();
+export function run() {
+    installHook(Runner);
+    Runner.addAction(`PriceFlow/Pre`, PriceFlowPreAction_Setup, 0);
+    Runner.addFilter(`PriceFlow/Pre`, PriceFlowPreFilter_CustomAttr, 0);
+    
+    window.BSS_B2B.log(`run script`);
+    window.BSS_B2B.page = Page;
+    Promise.allSettled([ Runner.runPriceFlow(), Runner.runCustomerFlow()]);
 }
-
-export { run };

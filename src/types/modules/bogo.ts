@@ -1,9 +1,5 @@
-import { IModule } from "./_interface";
+import { IModule } from "../interfaces";
 
-export interface IModuleBOGOInfo {
-    status: boolean;
-}
-
-export interface IModuleBOGO extends IModule {
+export default interface ModuleBOGO extends IModule {
     
 }

@@ -1,5 +1,5 @@
-import { IModule } from "./_interface";
+import { IModule } from "../interfaces";
 
-export interface IModuleRF extends IModule {
+export default interface ModuleRF extends IModule {
     
 }

@@ -1,9 +1,5 @@
-import { IModule } from "./_interface";
+import { IModule } from "../interfaces";
 
-export interface IModuleEFInfo {
-    status: boolean;
-}
-
-export interface IModuleEF extends IModule {
+export default interface ModuleEF extends IModule {
     
 }

@@ -1,5 +1,5 @@
-import { IModule } from "./_interface";
+import { IModule } from "../interfaces";
 
-export interface IModuleTE extends IModule {
-    selector: string;
+export default interface ModuleTE extends IModule {
+    
 }

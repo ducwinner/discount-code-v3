@@ -1,7 +1,5 @@
-import { IModule } from "./_interface";
+import { IModule } from "../interfaces";
 
-export interface IModuleTD extends IModule {
-    taxOverrides: any[];
-    taxOverridesByCountryCode: any;
-    taxOverridesRestOfWorld: any;
+export default interface ModuleTD extends IModule {
+    
 }

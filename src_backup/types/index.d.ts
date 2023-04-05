@@ -1,5 +1,7 @@
-import App from './app';
+import { App } from './global';
 export {};
+
+export type BSSB2BVersion = 1 | 3;
 
 declare global {
     interface Window {
@@ -17,6 +19,7 @@ declare global {
             convert: (D: number, R: number, S: number) => number;
             rates: Record<string, number>;
         };
+        Redux?: any;
         Shopify: Partial<{
             shop: string;
         }>;
