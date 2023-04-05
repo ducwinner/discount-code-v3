@@ -1,9 +1,10 @@
 import { BSSB2BVersion } from '../../types';
 import { OldOptions, Options, V3Options } from '../../types/common';
-import { CPRule } from '../../types/modules';
+import { PriceCP } from '../../types/modules/cp';
+
 
 type ILogic = {
-    [key in BSSB2BVersion]: (options: Options) => Promise<CPRule[]>;
+    [key in BSSB2BVersion]: (options: Options) => Promise<PriceCP[]>;
 };
 
 const Logic: ILogic = {
@@ -11,14 +12,14 @@ const Logic: ILogic = {
     [3]: V3Logic,
 };
 
-export default async function getAppliedRules(options: Options): Promise<CPRule[]> {
+export default async function getAppliedRules(options: Options): Promise<PriceCP[]> {
     return Logic[window.BSS_B2B.version](options);
 }
 
-async function OldLogic(options: OldOptions): Promise<CPRule[]> {
+async function OldLogic(options: OldOptions): Promise<PriceCP[]> {
     if (
         window.BSS_B2B.cp.status &&
-        window.BSS_B2B.configData &&
+        window.BSS_B2B.configData && 
         window.BSS_B2B.configData.length &&
         window.BSS_B2B.plConfigData &&
         window.BSS_B2B.plConfigData.length
@@ -29,12 +30,12 @@ async function OldLogic(options: OldOptions): Promise<CPRule[]> {
         return [];
     }
 }
-async function V3Logic(options: V3Options): Promise<CPRule[]> {
+async function V3Logic(options: V3Options): Promise<PriceCP[]> {
     try {
-        const response = await fetch('http://172.104.45.69:5000/sync/applied-rules', {
-            method: 'POST',
+        const response = await fetch(`http://172.104.45.69:5000/sync/applied-rules`, {
+            method: `POST`,
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': `application/json`,
             },
             body: JSON.stringify({
                 customer_id: options.customerId,
@@ -42,10 +43,10 @@ async function V3Logic(options: V3Options): Promise<CPRule[]> {
             }),
         });
         const json = await response.json();
-        if (json['statusCode'] === 200) {
-            return json['payload'] as CPRule[];
+        if (json[`statusCode`] === 200) {
+            return json[`payload`] as PriceCP[];
         } else {
-            window.BSS_B2B.log('/sync/applied-rules return not ok');
+            window.BSS_B2B.log(`/sync/applied-rules return not ok`);
             return [];
         }
     } catch (e) {

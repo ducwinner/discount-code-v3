@@ -31,7 +31,7 @@ export default function changePrice(productIds: number[] | null) {
                     });
                     return getAppliedRules({
                         customerId: window.__st.cid ? window.__st.cid : 0,
-                        productIds: Object.keys(uniqueProducts)
+                        productIds: Object.keys(uniqueProducts),
                     });
                 } else {
                     return null;
@@ -39,19 +39,21 @@ export default function changePrice(productIds: number[] | null) {
             })
             .then((priceLists) => {
                 if (!priceLists) {
-                    window.BSS_B2B.log('empty responseProducts');
+                    window.BSS_B2B.log(`empty responseProducts`);
                     return;
                 }
                 // search variants
                 // additional logic
                 // change price
-                return Promise.allSettled(priceLists.map(priceList => {
-                    //
-                    console.log(priceList)
-                }));
+                return Promise.allSettled(
+                    priceLists.map((priceList) => {
+                        //
+                        console.log(priceList);
+                    })
+                );
             })
             .catch((error) => {
-                window.BSS_B2B.log('some errors occurred when fetch or parse data:', error);
+                window.BSS_B2B.log(`some errors occurred when fetch or parse data:`, error);
             });
     }
 }

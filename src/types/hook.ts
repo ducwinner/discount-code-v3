@@ -1,6 +1,17 @@
-import { AnyFunction, HookActions, HookFilters, HookStatics } from "../types/modules";
+export type AnyFunction = (...args: any[]) => any;
+export type HookActions = {
+    [tag: string]: Array<AnyFunction[]>;
+};
 
-export default class Hook {
+export type HookFilters = {
+    [tag: string]: Array<AnyFunction[]>;
+};
+
+export type HookStatics = {
+    [tag: string]: Array<AnyFunction[]>;
+};
+
+export class Hook {
     actions: HookActions = {};
     filters: HookFilters = {};
     statics: HookStatics = {};
@@ -12,36 +23,39 @@ export default class Hook {
     }
 
     public execStatic(tag: string, value: any, ...args: any[]) {
-        if (typeof this.statics[tag] !== "undefined" && typeof this.statics[tag][window.BSS_B2B.storeId] !== "undefined") {
+        if (
+            typeof this.statics[tag] !== `undefined` &&
+            typeof this.statics[tag][window.BSS_B2B.storeId] !== `undefined`
+        ) {
             const callbacks = this.statics[tag][window.BSS_B2B.storeId];
             if (callbacks.length > 0) {
-                callbacks.forEach(callback => {
+                callbacks.forEach((callback) => {
                     value = callback(...args);
-                })
+                });
             }
         }
         return value;
     }
 
     public addAction(tag: string, callback: AnyFunction, priority?: number) {
-        if (typeof priority === "undefined") {
+        if (typeof priority === `undefined`) {
             priority = 10;
         }
-        
+
         this.actions[tag] = this.actions[tag] || [];
         this.actions[tag][priority] = this.actions[tag][priority] || [];
         this.actions[tag][priority].push(callback);
     }
 
     public execAction(tag: string, ...args: any[]) {
-        if (typeof this.actions[tag] !== "undefined" && this.actions[tag].length > 0) {
+        if (typeof this.actions[tag] !== `undefined` && this.actions[tag].length > 0) {
             this.actions[tag].forEach(function (priorities) {
                 priorities.forEach(function (callback) {
-                    if (typeof callback === "function") {
+                    if (typeof callback === `function`) {
                         callback(...args);
                     }
-                }) 
-            })
+                });
+            });
         }
     }
 
@@ -52,12 +66,12 @@ export default class Hook {
                 if (_callback === callback) {
                     this.actions[tag][i].splice(j, 1);
                 }
-            })
+            });
         });
     }
 
     public addFilter(tag: string, callback: AnyFunction, priority?: number) {
-        if (typeof priority === "undefined") {
+        if (typeof priority === `undefined`) {
             priority = 10;
         }
 
@@ -67,14 +81,14 @@ export default class Hook {
     }
 
     public execFilter(tag: string, value: any, ...args: any[]) {
-        if (typeof this.filters[tag] !== "undefined" && this.filters[tag].length > 0) {
+        if (typeof this.filters[tag] !== `undefined` && this.filters[tag].length > 0) {
             this.filters[tag].forEach(function (priorities) {
                 priorities.forEach(function (callback) {
-                    if (typeof callback === "function") {
+                    if (typeof callback === `function`) {
                         value = callback(...args);
                     }
-                }) 
-            })
+                });
+            });
         }
         return value;
     }
@@ -86,7 +100,7 @@ export default class Hook {
                 if (_callback === callback) {
                     this.filters[tag][i].splice(j, 1);
                 }
-            })
+            });
         });
     }
 }

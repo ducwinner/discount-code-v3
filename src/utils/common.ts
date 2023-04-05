@@ -1,7 +1,7 @@
 export function loadScript(url: string, callback: () => void) {
-    const script = document.createElement('script');
+    const script = document.createElement(`script`);
     script.src = url;
-    script.type = 'text/javascript';
+    script.type = `text/javascript`;
     script.onload = function () {
         callback();
     };
@@ -19,15 +19,15 @@ export function toLowerCase(item: string): string {
 export function getCSSSelector(selector: string) {
     const cpCustomSettings = window.BSS_B2B.cp.customSettings;
     if (cpCustomSettings != null) {
-        if (cpCustomSettings[selector] != null && selector.indexOf('_time_delay_') !== -1) {
+        if (cpCustomSettings[selector] != null && selector.indexOf(`_time_delay_`) !== -1) {
             return cpCustomSettings[selector];
         } else {
             if (cpCustomSettings[selector] != null && cpCustomSettings[selector].length) {
-                return ',' + cpCustomSettings[selector];
+                return `,` + cpCustomSettings[selector];
             }
         }
     }
-    return '';
+    return ``;
 }
 
 export function getProductMetafields() {
@@ -35,12 +35,12 @@ export function getProductMetafields() {
     let productsJson: any = {};
     let featuredCollection: any = {};
 
-    const collectionMetafieldElement = document.querySelector('.bss-b2b-collection-metafield');
+    const collectionMetafieldElement = document.querySelector(`.bss-b2b-collection-metafield`);
     if (collectionMetafieldElement) {
         productsJson = JSON.parse(collectionMetafieldElement.innerHTML);
     }
 
-    const featureCollectionMetafield = document.querySelector('.bss-b2b-feature-collection-metafield');
+    const featureCollectionMetafield = document.querySelector(`.bss-b2b-feature-collection-metafield`);
     if (featureCollectionMetafield) {
         featuredCollection = JSON.parse(featureCollectionMetafield.innerHTML);
     }
@@ -82,7 +82,7 @@ export function getProductMetafields() {
 
 export function getFeaturedProductMetafields(): any {
     let featuredProduct = {};
-    const featuredProductMetafieldElement = document.querySelector('.bss-b2b-featured-product-metafield');
+    const featuredProductMetafieldElement = document.querySelector(`.bss-b2b-featured-product-metafield`);
     if (featuredProductMetafieldElement) {
         featuredProduct = JSON.parse(featuredProductMetafieldElement.innerHTML);
     }
@@ -90,6 +90,6 @@ export function getFeaturedProductMetafields(): any {
 }
 
 export function searchProducts(ids: number[]): Promise<Response> {
-    const url = encodeURI(`search.js?q=${ids.map((item) => `id:"${item}"`).join(' OR ')}&view=bss.b2b`);
+    const url = encodeURI(`search.js?q=${ids.map((item) => `id:"${item}"`).join(` OR `)}&view=bss.b2b`);
     return fetch(url);
 }
