@@ -1,16 +1,20 @@
-import { IPage, IProduct, IShopData, Version } from "./interfaces";
-import ModuleMap from "./modules";
+import { IPage, IProduct, IShopData, Version } from './interfaces';
+import Modules from './modules';
 
+export interface IAppProduct extends IProduct {
+    appliedCP?: any;
+    appliedQB?: any;
+}
 export default interface App {
     // init from API
     storeId: number;
-    modules: ModuleMap;
+    modules: Modules;
     countryCode: string;
     countryTax: number;
 
-    // 
+    //
     page: IPage;
-    products: Map<number, IProduct>;
+    products: Map<number, IAppProduct>;
     shopData: IShopData;
     version: Version;
 

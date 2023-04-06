@@ -1,7 +1,7 @@
-import Hookable from "../../Hook.class";
-import { IModuleLogic } from "../../types/modules/dc";
-import { toLowerCase } from "../../utils/common";
-import { getCart, search, updateCart } from "../../utils/shopify";
+import Hookable from '../../Hook.class';
+import { IModuleLogic } from '../../types/modules/dc';
+import { searchProducts, toLowerCase } from '../../utils/common';
+import { getCart, updateCart } from '../../utils/shopify';
 
 export default class ModuleLogic extends Hookable implements IModuleLogic {
     getAppliedCodes(): Promise<any> {
@@ -14,16 +14,14 @@ export default class ModuleLogic extends Hookable implements IModuleLogic {
                     const today = new Date();
                     const moment = today.toLocaleTimeString();
                     const handles = [];
-                    const handleURLs = [];
                     for (let i = 0; i < window.BSS_B2B.shopData.cart.items.length; i++) {
                         const item = window.BSS_B2B.shopData.cart.items[i];
                         const proId = item.product_id;
                         if (handles.indexOf(proId) === -1) {
                             handles.push(proId);
-                            handleURLs.push(`id:"` + proId + `"`);
                         }
                     }
-                    search(handleURLs.join(` OR `))
+                    searchProducts(handles)
                         .then((response) => response.json())
                         .then((data) => {
                             const responseProducts = data;
@@ -45,10 +43,10 @@ export default class ModuleLogic extends Hookable implements IModuleLogic {
                                     cart_items: responseProducts,
                                     domain: window.BSS_B2B.shopData.shop.permanent_domain,
                                     discount_code: discountCode,
-                                    isEnableCP: window.BSS_B2B.cp.status,
+                                    isEnableCP: window.BSS_B2B.modules.cp.status,
                                     isEnableQB: window.BSS_B2B.qb.status,
                                     qbRules: window.BSS_B2B.qb.rules,
-                                    cpRules: window.BSS_B2B.cp.rules,
+                                    // cpRules: window.BSS_B2B.modules.cp.rules,
                                 };
 
                                 fetch(window.bssB2BApiServer + `/dc/check-discount-code`, {
@@ -102,7 +100,7 @@ export default class ModuleLogic extends Hookable implements IModuleLogic {
                                                     }),
                                                 },
                                             }).then(() => {
-                                                window.BSS_B2B.dc.handleRemoveCode();
+                                                window.BSS_B2B.modules.dc.logic.handleRemoveCode();
                                             });
                                         }
                                     })
@@ -144,7 +142,7 @@ export default class ModuleLogic extends Hookable implements IModuleLogic {
         return;
     }
     showBox(): Promise<any> {
-        const dcRules = window.BSS_B2B.dc.rules;
+        const dcRules = window.BSS_B2B.modules.dc.rules;
         let isShowDiscountBox = true;
         const customerId = window.BSS_B2B.shopData.customer.id;
         const customerTags =

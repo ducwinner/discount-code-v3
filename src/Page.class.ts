@@ -1,4 +1,4 @@
-import { IPage } from "./types/interfaces";
+import { IPage } from './types/interfaces';
 
 export default class Page implements IPage {
     getPage(): string[] {
@@ -105,4 +105,4 @@ export default class Page implements IPage {
             return hrefArr[hrefArr.length - 1] === `search` || hrefArr[hrefArr.length - 1].includes(`search`);
         }
     }
-};
+}

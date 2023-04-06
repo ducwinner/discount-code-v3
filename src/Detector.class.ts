@@ -1,4 +1,3 @@
-
 import { SELECTORS } from './const/product-selectors';
 import Hookable from './Hook.class';
 import { detectProductsCustomAttr } from './hooks/add-ons/detector';
@@ -26,7 +25,6 @@ export default class Detector extends Hookable {
         } else {
             elements = document.querySelectorAll(SELECTORS);
         }
-    
         if (!elements || !elements.length) {
             return [];
         }
@@ -37,8 +35,8 @@ export default class Detector extends Hookable {
             }
         }
 
-        if (elements.length > 0 || window.BSS_B2B.cp.firstLoad) {
-            window.BSS_B2B.cp.firstLoad = false;
+        if (elements.length > 0 || window.BSS_B2B.modules.cp.logic.firstLoad) {
+            window.BSS_B2B.modules.cp.logic.firstLoad = false;
         } else {
             return [];
         }
@@ -50,7 +48,10 @@ export default class Detector extends Hookable {
         const productIds = [];
         const check = new Map<string, boolean>();
         for (const element of elements) {
-            if (this.execFilter(`IntegrateBSSLogin/AvoidDetect`, false, element)) {
+            const isAvoid = await this.execFilter(`IntegrateBSSLogin/AvoidDetect`, false, element);
+            console.log(`isAvoid`, isAvoid);
+
+            if (isAvoid) {
                 continue;
             }
             const productId = element.getAttribute(`bss-b2b-product-id`);
@@ -77,7 +78,7 @@ export default class Detector extends Hookable {
                     element.parentElement.parentElement.setAttribute(`bss-b2b-product-min-price`, `true`);
                 }
             }
-            if (productId && productId !== `` && check.get(productId) !== undefined) {
+            if (productId && productId !== `` && !check.get(productId)) {
                 check.set(productId, true);
                 productIds.push(+productId);
             }

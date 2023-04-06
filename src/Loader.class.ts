@@ -12,6 +12,7 @@ export default class Loader {
         return Loader.instance;
     }
     public async load(): Promise<void> {
+        window.BSS_B2B.products = new Map();
         window.BSS_B2B.countryCode = ``;
         window.BSS_B2B.countryTax = null;
         window.BSS_B2B.log = function (message?: any, ...optionalParams: any[]) {
@@ -30,7 +31,7 @@ export default class Loader {
         await Modules.init();
         if (
             (window.BSS_B2B.countryCode === `` || window.BSS_B2B.countryTax === null) &&
-            (window.BSS_B2B.td.status || window.BSS_B2B.te.status || window.BSS_B2B.mc.status)
+            (window.BSS_B2B?.td?.status || window.BSS_B2B?.te?.status || window.BSS_B2B?.mc?.status)
         ) {
             try {
                 const response = await fetch(`${window.bssB2BApiServer}/vat/get-tax-based-contry`, {

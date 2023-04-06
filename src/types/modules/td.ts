@@ -1,4 +1,4 @@
-import { IModule } from "../interfaces";
+import { IModule } from '../interfaces';
 
 export interface IModuleLogic {
     // properties
@@ -8,6 +8,6 @@ export interface IModuleLogic {
 }
 export default interface IModuleTD extends IModule {
     taxOverrides: any[];
-    
+
     logic: IModuleLogic;
 }

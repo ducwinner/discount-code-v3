@@ -17,8 +17,3 @@ export function updateCart(update: any) {
         body: JSON.stringify(update),
     });
 }
-
-export function search(query: string) {
-    const url = encodeURI(`/search.js?q=${query}&view=bss.b2b`);
-    return fetch(url);
-}

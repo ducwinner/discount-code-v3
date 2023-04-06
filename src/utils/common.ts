@@ -17,8 +17,8 @@ export function toLowerCase(item: string): string {
 }
 
 export function getCSSSelector(selector: string) {
-    const cpCustomSettings = window.BSS_B2B.cp.customSettings;
-    if (cpCustomSettings != null) {
+    const cpCustomSettings = window.BSS_B2B.modules.cp.customSettings;
+    if (!!cpCustomSettings) {
         if (cpCustomSettings[selector] != null && selector.indexOf(`_time_delay_`) !== -1) {
             return cpCustomSettings[selector];
         } else {
@@ -90,6 +90,6 @@ export function getFeaturedProductMetafields(): any {
 }
 
 export function searchProducts(ids: number[]): Promise<Response> {
-    const url = encodeURI(`search.js?q=${ids.map((item) => `id:"${item}"`).join(` OR `)}&view=bss.b2b`);
+    const url = encodeURI(`/search.js?q=${ids.map((item) => `id:"${item}"`).join(` OR `)}&view=bss.b2b`);
     return fetch(url);
 }

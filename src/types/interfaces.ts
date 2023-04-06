@@ -22,12 +22,12 @@ export type AsyncFunction = (...args: any[]) => Promise<any>;
 
 export type HookStore = {
     [tag: string]: Hook;
-}
+};
 
 export type Hook = {
     options?: HookOptions;
     callbacks: Array<AsyncFunction[]>;
-}
+};
 
 export type HookOptions = boolean;
 /** END HOOK */
@@ -62,20 +62,36 @@ export interface ICustomer {
     tax_exempt: boolean | null;
 
     [key: string]: any;
-} 
+}
+
+export interface ISearchProduct {
+    id: number;
+    title: string;
+    tags: string[];
+    collections: ICollection[];
+
+    price: string | number | null;
+    price_min: string | number | null;
+    price_max: string | number | null;
+    compare_at_price_min: string | number | null;
+    compare_at_price_max: string | number | null;
+
+    variants: IVariant[];
+}
 
 export interface IProduct {
     id: number;
-    title?: string;
-    originalPrice?: string;
-    compareAtPrice?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    minCompareAtPrice?: string;
-    maxCompareAtPrice?: string;
-    variants?: IVariant[];
+    product_name?: string;
+    tags?: string[];
     collections?: ICollection[];
-    
+
+    price?: string | number | null;
+    priceMin?: string | number | null;
+    priceMax?: string | number | null;
+    compareAtPriceMin?: string | number | null;
+    compareAtPriceMax?: string | number | null;
+    variants?: IVariant[];
+
     [key: string]: any;
 }
 

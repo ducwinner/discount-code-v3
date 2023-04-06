@@ -28,4 +28,6 @@ export const SELECTORS = [
     getCSSSelector(`product_lowest_price`),
     getCSSSelector(`product_current_variant_price`),
     getCSSSelector(`product_unit_price`),
-].join(`,`);
+]
+    .filter((item) => !!item)
+    .join(`,`);
