@@ -1,7 +1,6 @@
-import { IPage, IProduct, IShopData } from "./interfaces";
+import { IPage, IProduct, IShopData, Version } from "./interfaces";
 import ModuleMap from "./modules";
 
-export type Version = 1 | 3;
 export default interface App {
     // init from API
     storeId: number;
@@ -17,5 +16,6 @@ export default interface App {
 
     //
     log: (message?: any, ...optionalParams: any[]) => void;
+    debugger: any[];
     [key: string]: any;
 }

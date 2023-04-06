@@ -13,6 +13,7 @@ declare global {
         bssB2BEnableUkVat?: boolean;
         bssGeoServiceUrl?: string;
         BSS_B2B: App;
+        // extract types from https://cdn.shopify.com/s/javascripts/currencies.js
         Currency: {
             convert: (D: number, R: number, S: number) => number;
             rates: Record<string, number>;

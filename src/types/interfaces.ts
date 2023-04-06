@@ -1,5 +1,6 @@
-
-export interface IModule extends IHookable {
+export type Version = 1 | 3;
+export interface IModule {
+    readonly code: string;
     status?: boolean;
 }
 
@@ -65,6 +66,7 @@ export interface ICustomer {
 
 export interface IProduct {
     id: number;
+    title?: string;
     originalPrice?: string;
     compareAtPrice?: string;
     minPrice?: string;
@@ -72,6 +74,7 @@ export interface IProduct {
     minCompareAtPrice?: string;
     maxCompareAtPrice?: string;
     variants?: IVariant[];
+    collections?: ICollection[];
     
     [key: string]: any;
 }
@@ -105,15 +108,15 @@ export interface ICartItem {
 
 /** PAGE INFORMATION */
 export interface IPage {
-    readonly getPage: string[];
-    readonly isCartPage: boolean;
-    readonly isCollectionPage: boolean;
-    readonly isCustomPage: boolean;
-    readonly isHomePage: boolean;
-    readonly isLoginPage: boolean;
-    readonly isProductPage: boolean;
-    readonly isQuickOrderPage: boolean;
-    readonly isRegisterPage: boolean;
-    readonly isSearchPage: boolean;
+    getPage(): string[];
+    isCartPage(): boolean;
+    isCollectionPage(): boolean;
+    isCustomPage(): boolean;
+    isHomePage(): boolean;
+    isLoginPage(): boolean;
+    isProductPage(): boolean;
+    isQuickOrderPage(): boolean;
+    isRegisterPage(): boolean;
+    isSearchPage(): boolean;
 }
 /** END PAGE INFORMATION */

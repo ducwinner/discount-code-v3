@@ -1,5 +1,10 @@
 import { IModule } from "../interfaces";
 
-export default interface ModuleTE extends IModule {
-    
+export interface IModuleLogic {
+    // properties
+    selector: string;
+    // methods
+}
+export default interface IModuleTE extends IModule {
+    logic: IModuleLogic;
 }
