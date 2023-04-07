@@ -34,7 +34,7 @@ export default class Loader {
             (window.BSS_B2B?.td?.status || window.BSS_B2B?.te?.status || window.BSS_B2B?.mc?.status)
         ) {
             try {
-                const response = await fetch(`${window.bssB2BApiServer}/vat/get-tax-based-contry`, {
+                const response = await fetch(`${window.bssB2bApiServer}/vat/get-tax-based-contry`, {
                     method: `POST`,
                     headers: {
                         'Content-Type': `application/json`,

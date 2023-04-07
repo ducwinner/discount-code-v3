@@ -25,16 +25,19 @@ async function V1Logic(options: Options): Promise<PriceCP[]> {
 async function V3Logic(options: Options): Promise<PriceCP[]> {
     console.log(options.isCartItem);
     try {
-        const response = await fetch(`http://172.104.45.69:5000/sync/applied-rules`, {
-            method: `POST`,
-            headers: {
-                'Content-Type': `application/json`,
-            },
-            body: JSON.stringify({
-                customer_id: !!window.__st.cid ? window.__st.cid : 0,
-                product_ids: window.BSS_B2B.products.keys(),
-            }),
-        });
+        const response = await fetch(
+            `${window.bssB2bApiServer}/v3/public/applied-rules?domain=${window.Shopify.shop}`,
+            {
+                method: `POST`,
+                headers: {
+                    'Content-Type': `application/json`,
+                },
+                body: JSON.stringify({
+                    customer_id: !!window.__st.cid ? window.__st.cid : 0,
+                    product_ids: Array.from(window.BSS_B2B.products.keys()),
+                }),
+            }
+        );
         const json = await response.json();
         if (json[`statusCode`] === 200) {
             return json[`payload`] as PriceCP[];

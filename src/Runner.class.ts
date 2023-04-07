@@ -55,6 +55,7 @@ export default class Runner extends Hookable {
             }
             /** CP Check */
             const appliedCPs = await window.BSS_B2B.modules.cp.logic.getAppliedRules(false);
+            console.log(appliedCPs);
             appliedCPs.forEach((item) => {
                 const product = window.BSS_B2B.products.get(+item.product_id);
                 if (product) {

@@ -6,7 +6,7 @@ declare global {
         __st: {
             cid: number | null;
         };
-        bssB2BApiServer?: string;
+        bssB2bApiServer?: string;
         bssB2BEnableAbn?: boolean;
         bssB2BEnableEuVat?: boolean;
         bssB2BEnableGst?: boolean;

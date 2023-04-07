@@ -49,7 +49,7 @@ export default class ModuleLogic extends Hookable implements IModuleLogic {
                                     // cpRules: window.BSS_B2B.modules.cp.rules,
                                 };
 
-                                fetch(window.bssB2BApiServer + `/dc/check-discount-code`, {
+                                fetch(window.bssB2bApiServer + `/dc/check-discount-code`, {
                                     method: `POST`,
                                     headers: {
                                         'Content-Type': `application/json`,

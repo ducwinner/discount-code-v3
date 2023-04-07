@@ -49,8 +49,6 @@ export default class Detector extends Hookable {
         const check = new Map<string, boolean>();
         for (const element of elements) {
             const isAvoid = await this.execFilter(`IntegrateBSSLogin/AvoidDetect`, false, element);
-            console.log(`isAvoid`, isAvoid);
-
             if (isAvoid) {
                 continue;
             }
