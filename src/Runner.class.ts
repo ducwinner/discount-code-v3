@@ -22,14 +22,11 @@ export default class Runner extends Hookable {
     }
 
     private async runPriceFlow() {
-        console.log(`runPriceFlow`);
         // pre-hook
         this.execAction(`PriceFlow/Pre`);
         // core
-        console.log(`runPriceFlow`);
         const detector = Detector.getInstance();
         const productIds = await detector.detectProducts(null);
-        console.log(productIds);
         const productIdsSet = [];
         try {
             const response = await searchProducts(productIds);
@@ -55,7 +52,6 @@ export default class Runner extends Hookable {
             }
             /** CP Check */
             const appliedCPs = await window.BSS_B2B.modules.cp.logic.getAppliedRules(false);
-            console.log(appliedCPs);
             appliedCPs.forEach((item) => {
                 const product = window.BSS_B2B.products.get(+item.product_id);
                 if (product) {
@@ -63,8 +59,28 @@ export default class Runner extends Hookable {
                 }
             });
             /** QB Check */
+            /** ----- Calculate Price ----- */
+            for (const [key, value] of window.BSS_B2B.products.entries()) {
+                let price = value.price;
+                if (value.appliedCP) {
+                    price = await window.BSS_B2B.modules.cp.logic.getModifiedPrice(
+                        value.price,
+                        value.appliedCP.discount_type,
+                        value.appliedCP.discount_value
+                    );
+                }
+                const priceElements = await Detector.getInstance().getOriginalPriceElements(key);
+                for (const element of priceElements) {
+                    element.innerHTML = window.BSS_B2B.formatMoney(`` + price);
+                }
+            }
+            /** --------------------------- */
         } catch (e) {
             window.BSS_B2B.log(`Could not search product data`, e);
+        } finally {
+            document
+                .querySelectorAll<HTMLElement>(`[bss-b2b-product-id]`)
+                .forEach((e) => (e.style.visibility = `visible`));
         }
         // post-hook
     }

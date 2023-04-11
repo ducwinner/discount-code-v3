@@ -93,3 +93,10 @@ export function searchProducts(ids: number[]): Promise<Response> {
     const url = encodeURI(`/search.js?q=${ids.map((item) => `id:"${item}"`).join(` OR `)}&view=bss.b2b`);
     return fetch(url);
 }
+
+export const PriceFactor = 100;
+export const PercentageFactor = 100;
+
+export function mutiplyMarketRate(price: number) {
+    return price * parseFloat(window.Shopify.currency.rate);
+}

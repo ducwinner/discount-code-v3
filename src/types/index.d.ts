@@ -20,6 +20,10 @@ declare global {
         };
         Shopify: Partial<{
             shop: string;
+            currency: {
+                active: string;
+                rate: string;
+            };
         }>;
         ShopifyAnalytics: any;
     }

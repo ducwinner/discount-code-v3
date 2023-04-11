@@ -9,13 +9,8 @@ export default async function getAppliedRules(options: Options): Promise<PriceCP
 }
 
 async function V1Logic(options: Options): Promise<PriceCP[]> {
-    if (
-        window.BSS_B2B.modules.cp.status &&
-        window.BSS_B2B.configData &&
-        window.BSS_B2B.configData.length &&
-        window.BSS_B2B.plConfigData &&
-        window.BSS_B2B.plConfigData.length
-    ) {
+    const cp = window.BSS_B2B.modules.cp;
+    if (cp.status && ((cp.configData && cp.configData.length) || (cp.plConfigData && cp.plConfigData.length))) {
         console.log(options.isCartItem);
         return [];
     } else {
@@ -40,7 +35,13 @@ async function V3Logic(options: Options): Promise<PriceCP[]> {
         );
         const json = await response.json();
         if (json[`statusCode`] === 200) {
-            return json[`payload`] as PriceCP[];
+            return (json[`payload`] as any[]).map((item) => {
+                return {
+                    product_id: Number(item.product_id),
+                    discount_type: item.pricing_rule.discount_type,
+                    discount_value: item.pricing_rule.discount_value,
+                };
+            }) as PriceCP[];
         } else {
             window.BSS_B2B.log(`/sync/applied-rules return not ok`);
             return [];
