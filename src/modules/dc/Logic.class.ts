@@ -1,5 +1,5 @@
-import Hookable from '../../Hook.class';
-import { IModuleLogic } from '../../types/modules/dc';
+import Hookable from '@/Hookable.class';
+import { IModuleLogic } from '@/interfaces/modules/dc';
 import { searchProducts, toLowerCase } from '../../utils/common';
 import { getCart, updateCart } from '../../utils/shopify';
 

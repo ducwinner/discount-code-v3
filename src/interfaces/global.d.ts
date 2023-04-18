@@ -33,16 +33,16 @@ export type HookOptions = boolean;
 /** END HOOK */
 
 /** STOREFRONT DATA */
-export interface IShopData {
-    shop: IShop;
-    customer: ICustomer | null;
-    cart: ICart;
+export interface ShopData {
+    shop: Shop;
+    customer: Customer;
+    cart: Cart;
     line_item_products: any[];
-    product: IProduct;
-    collections: ICollection[];
+    product: Product;
+    collections: Collection[];
 }
 
-export interface IShop {
+export interface Shop {
     domain: string;
     permanent_domain: string;
     url: string;
@@ -55,8 +55,8 @@ export interface IShop {
     [key: string]: any;
 }
 
-export interface ICustomer {
-    id: number;
+export interface Customer {
+    id: number | null;
     email: string;
     tags: string[] | null;
     tax_exempt: boolean | null;
@@ -64,11 +64,11 @@ export interface ICustomer {
     [key: string]: any;
 }
 
-export interface ISearchProduct {
+export interface SearchProduct {
     id: number;
     title: string;
     tags: string[];
-    collections: ICollection[];
+    collections: Collection[];
 
     price: string | number | null;
     price_min: string | number | null;
@@ -76,45 +76,40 @@ export interface ISearchProduct {
     compare_at_price_min: string | number | null;
     compare_at_price_max: string | number | null;
 
-    variants: IVariant[];
+    variants: Variant[];
 }
 
-export interface IProduct {
+export interface Product {
     id: number;
     product_name?: string;
     tags?: string[];
-    collections?: ICollection[];
+    collections?: Collection[];
 
     price?: string | number | null;
     priceMin?: string | number | null;
     priceMax?: string | number | null;
     compareAtPriceMin?: string | number | null;
     compareAtPriceMax?: string | number | null;
-    variants?: IVariant[];
+    variants?: Variant[];
 
     [key: string]: any;
 }
 
-export interface IVariant {
+export interface Variant {
     id: number;
     product_id: number;
 
     [key: string]: any;
 }
 
-export interface ICollection {
-    id: number;
+export type Collection = number;
+export interface Cart {
+    items: CartItem[];
 
     [key: string]: any;
 }
 
-export interface ICart {
-    items: ICartItem[];
-
-    [key: string]: any;
-}
-
-export interface ICartItem {
+export interface CartItem {
     key: string;
     product_id: number;
 
@@ -123,7 +118,7 @@ export interface ICartItem {
 /** END STOREFRONT DATA */
 
 /** PAGE INFORMATION */
-export interface IPage {
+export interface Page {
     getPage(): string[];
     isCartPage(): boolean;
     isCollectionPage(): boolean;

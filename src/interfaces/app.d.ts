@@ -1,9 +1,9 @@
-import { IPage, IProduct, IShopData, Version } from './interfaces';
+import { Page, Product, ShopData, Version } from './global';
 import Modules from './modules';
-import { PriceCP } from './modules/cp';
+import { PricingApplied } from './modules/cp';
 
-export interface IAppProduct extends IProduct {
-    appliedCP?: PriceCP;
+export interface AppProduct extends Product {
+    appliedCP?: PricingApplied;
     appliedQB?: any;
 }
 export default interface App {
@@ -14,9 +14,10 @@ export default interface App {
     countryTax: number;
 
     //
-    page: IPage;
-    products: Map<number, IAppProduct>;
-    shopData: IShopData;
+    page: Page;
+    products: Map<number, AppProduct>;
+    cart: Map<number, string>;
+    shopData: ShopData;
     version: Version;
 
     //

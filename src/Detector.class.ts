@@ -1,7 +1,7 @@
-import { SELECTORS } from './const/product-selectors';
-import Hookable from './Hook.class';
-import { detectProductsCustomAttr } from './hooks/add-ons/detector';
-import { avoidDetect } from './hooks/integrate/BSS_Login';
+import { SELECTORS } from '@/const/product-selectors';
+import Hookable from '@/Hookable.class';
+import { detectProductsCustomAttr } from '@/hooks/add-ons/detector';
+import { avoidDetect } from '@/hooks/integrate/BSS_Login';
 
 export default class Detector extends Hookable {
     public static instance: Detector;
@@ -16,51 +16,6 @@ export default class Detector extends Hookable {
             Detector.instance.addFilter(`IntegrateBSSLogin/AvoidDetect`, avoidDetect, 0);
         }
         return Detector.instance;
-    }
-
-    async getOriginalPriceElements(productId: number | string) {
-        return document.querySelectorAll<HTMLElement>(
-            [
-                `[bss-b2b-product-id="${productId}"][bss-b2b-current-variant-price]`,
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-sale-price]`,
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-featured-price]`,
-                `[bss-b2b-product-id="${productId}"][bss-b2b-variant-price]`,
-                // deprecated above, use this
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-price]`,
-            ].join(`,`)
-        );
-    }
-
-    async getMinPriceElements(productId: number | string) {
-        return document.querySelectorAll<HTMLElement>(
-            [
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-lowest-price]`,
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-from-price]`,
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-now-price]`,
-                // deprecated above, use this
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-min-price]`,
-            ].join(`,`)
-        );
-    }
-
-    async getMaxPriceElements(productId: number | string) {
-        return document.querySelectorAll<HTMLElement>(
-            [
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-highest-price]`,
-                // deprecated above, use this
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-max-price]`,
-            ].join(`,`)
-        );
-    }
-
-    async getUnitPriceElements(productId: number | string) {
-        return document.querySelectorAll<HTMLElement>(
-            [
-                `[bss-b2b-product-id="${productId}"][bss-b2b-variant-id][bss-b2b-variant-unit-price]`,
-                //
-                `[bss-b2b-product-id="${productId}"][bss-b2b-product-parent-price][data-unit-price]`,
-            ].join(`,`)
-        );
     }
 
     async getButtonPriceElement(productId: number | string) {

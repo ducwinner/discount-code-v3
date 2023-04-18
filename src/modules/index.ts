@@ -11,7 +11,7 @@ import initSR from './sr';
 import initTD from './td';
 import initTE from './te';
 
-export async function init() {
+export async function load() {
     return Promise.allSettled([
         initBOGO(),
         initCP(),

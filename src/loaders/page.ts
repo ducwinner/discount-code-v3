@@ -1,10 +1,9 @@
-import { IPage } from './types/interfaces';
+import { Page } from '@/interfaces/global';
 
-export default class Page implements IPage {
+const page: Page = Object.freeze({
     getPage(): string[] {
         return window.location.href.split(`/`);
-    }
-
+    },
     isCartPage(): boolean {
         const hrefArr = this.getPage();
         return (
@@ -13,8 +12,7 @@ export default class Page implements IPage {
                 hrefArr[hrefArr.length - 2] !== `products` &&
                 hrefArr[hrefArr.length - 2] !== `collections`)
         );
-    }
-
+    },
     isCollectionPage(): boolean {
         if (
             window.ShopifyAnalytics &&
@@ -27,8 +25,7 @@ export default class Page implements IPage {
             const hrefArr = this.getPage();
             return hrefArr[hrefArr.length - 2] === `collections`;
         }
-    }
-
+    },
     isCustomPage(): boolean {
         if (
             window.ShopifyAnalytics &&
@@ -41,16 +38,14 @@ export default class Page implements IPage {
             const hrefArr = this.getPage();
             return hrefArr[hrefArr.length - 2] === `pages`;
         }
-    }
-
+    },
     isLoginPage(): boolean {
         const hrefArr = this.getPage();
         return (
             (hrefArr[hrefArr.length - 1] === `login` || hrefArr[hrefArr.length - 1].includes(`login`)) &&
             hrefArr[hrefArr.length - 2] === `account`
         );
-    }
-
+    },
     isHomePage(): boolean {
         if (
             window.ShopifyAnalytics &&
@@ -63,8 +58,7 @@ export default class Page implements IPage {
             const hrefArr = this.getPage();
             return hrefArr[hrefArr.length - 1] === ``;
         }
-    }
-
+    },
     isProductPage(): boolean {
         if (
             window.ShopifyAnalytics &&
@@ -77,21 +71,18 @@ export default class Page implements IPage {
             const hrefArr = this.getPage();
             return hrefArr[hrefArr.length - 2] === `products`;
         }
-    }
-
+    },
     isQuickOrderPage(): boolean {
         const hrefArr = this.getPage();
         return hrefArr[hrefArr.length - 1] === `quick-order` && hrefArr[hrefArr.length - 2] !== `customer-portal`;
-    }
-
+    },
     isRegisterPage(): boolean {
         const hrefArr = this.getPage();
         return (
             (hrefArr[hrefArr.length - 1] === `register` || hrefArr[hrefArr.length - 1].includes(`register`)) &&
             hrefArr[hrefArr.length - 2] === `account`
         );
-    }
-
+    },
     isSearchPage(): boolean {
         if (
             window.ShopifyAnalytics &&
@@ -104,5 +95,7 @@ export default class Page implements IPage {
             const hrefArr = this.getPage();
             return hrefArr[hrefArr.length - 1] === `search` || hrefArr[hrefArr.length - 1].includes(`search`);
         }
-    }
-}
+    },
+});
+
+export default page;

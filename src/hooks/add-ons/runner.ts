@@ -1,4 +1,4 @@
-import { loadScript, remove } from '../../utils/common';
+import { loadScript, remove } from '@/utils/common';
 
 export async function PriceFlowPreAction_Setup(): Promise<void> {
     if (

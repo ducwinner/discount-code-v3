@@ -1,4 +1,4 @@
-import Loader from './Loader.class';
+import * as Loader from '@/loaders';
 
 (function runScript() {
     if (typeof window.BSS_B2B === `undefined`) {
@@ -10,7 +10,7 @@ import Loader from './Loader.class';
         if (shopDataElement) {
             window.BSS_B2B.shopData = JSON.parse(shopDataElement.innerText);
         }
-        return Loader.getInstance().load();
+        return Loader.load();
     } catch (e) {
         console.log(`[bss.b2b]`, `could not get shop data`);
         return;

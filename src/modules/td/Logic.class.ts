@@ -1,5 +1,5 @@
-import Hookable from '../../Hook.class';
-import { IModuleLogic } from '../../types/modules/td';
+import Hookable from '@/Hookable.class';
+import { IModuleLogic } from '@/interfaces/modules/td';
 
 export default class ModuleLogic extends Hookable implements IModuleLogic {
     taxOverridesByCountryCode: any;

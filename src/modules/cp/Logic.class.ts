@@ -1,5 +1,5 @@
-import Hookable from '../../Hook.class';
-import { IModuleLogic, PriceCP } from '../../types/modules/cp';
+import Hookable from '@/Hookable.class';
+import { IModuleLogic, PricingApplied } from '@/interfaces/modules/cp';
 import getAppliedRules from './get-applied-rules';
 import getModifiedPrice from './get-modified-price';
 
@@ -11,7 +11,7 @@ export default class ModuleLogicCP extends Hookable implements IModuleLogic {
         this.firstLoad = false;
     }
 
-    async getAppliedRules(isCartItem?: boolean): Promise<PriceCP[]> {
+    async getAppliedRules(isCartItem?: boolean): Promise<PricingApplied[]> {
         return getAppliedRules({ isCartItem: !!isCartItem });
     }
 

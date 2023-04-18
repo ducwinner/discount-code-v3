@@ -1,9 +1,9 @@
-import { IModule } from '../interfaces';
+import { IModule } from '../global';
 
 export interface IModuleLogic {
     // properties
     // methods
 }
-export default interface IModuleEF extends IModule {
+export default interface IModuleQB extends IModule {
     logic: IModuleLogic;
 }

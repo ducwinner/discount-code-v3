@@ -1,8 +1,12 @@
 {
     "version": "1.0.0",
     "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@/*": ["*"]
+        },
         "outDir": "./dist",
-        "lib": ["ES5", "ES2016","DOM", "ES2018.Promise", "DOM.Iterable"],
+        "lib": ["ES2022","DOM", "ES2021.Promise", "DOM.Iterable"],
         "allowJs": true,
         "sourceMap": true,
         "target": "ES6",

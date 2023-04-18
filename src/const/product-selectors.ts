@@ -1,4 +1,4 @@
-import { getCSSSelector } from '../utils/common';
+import { getCSSSelector } from '@/utils/common';
 
 export const SELECTORS = [
     `[bss-b2b-product-id][bss-b2b-product-price]:not([bss-b2b-product-active])`,

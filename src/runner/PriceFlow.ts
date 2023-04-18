@@ -1,27 +1,25 @@
-import Detector from './Detector.class';
-import Hookable from './Hook.class';
-import Page from './Page.class';
-import { PriceFlowPreAction_Setup, PriceFlowPreFilter_CustomAttr } from './hooks/add-ons/runner';
-import { ISearchProduct } from './types/interfaces';
-import { searchProducts } from './utils/common';
+import Detector from '@/Detector.class';
+import Hookable from '@/Hookable.class';
+import { PriceFlowPreAction_Setup, PriceFlowPreFilter_CustomAttr } from '@/hooks/add-ons/runner';
+import { SearchProduct } from '@/interfaces/global';
+import { searchProducts } from '@/utils/common';
+import { getOriginalPriceElements } from '@/utils/dom';
 
-export default class Runner extends Hookable {
-    public static instance: Runner;
+export default class PriceFlow extends Hookable {
+    public static instance: PriceFlow;
     private constructor() {
         super();
     }
-    public static getInstance(): Runner {
-        if (!Runner.instance) {
-            Runner.instance = new Runner();
-            Runner.instance.addAction(`PriceFlow/Pre`, PriceFlowPreAction_Setup, 0);
-            Runner.instance.addFilter(`PriceFlow/Pre`, PriceFlowPreFilter_CustomAttr, 0);
-            window.BSS_B2B.log(`run script`);
-            window.BSS_B2B.page = new Page();
+    public static getIns(): PriceFlow {
+        if (!PriceFlow.instance) {
+            PriceFlow.instance = new PriceFlow();
+            PriceFlow.instance.addAction(`PriceFlow/Pre`, PriceFlowPreAction_Setup, 0);
+            PriceFlow.instance.addFilter(`PriceFlow/Pre`, PriceFlowPreFilter_CustomAttr, 0);
         }
-        return Runner.instance;
+        return PriceFlow.instance;
     }
 
-    private async runPriceFlow() {
+    public async execute() {
         // pre-hook
         this.execAction(`PriceFlow/Pre`);
         // core
@@ -30,7 +28,7 @@ export default class Runner extends Hookable {
         const productIdsSet = [];
         try {
             const response = await searchProducts(productIds);
-            const json: ISearchProduct[] = await response.json();
+            const json: SearchProduct[] = await response.json();
             if (json.length > 0) {
                 json.forEach((product) => {
                     if (!window.BSS_B2B.products.get(product.id)) {
@@ -52,6 +50,7 @@ export default class Runner extends Hookable {
             }
             /** CP Check */
             const appliedCPs = await window.BSS_B2B.modules.cp.logic.getAppliedRules(false);
+            console.log(`appliedCPs`, appliedCPs);
             appliedCPs.forEach((item) => {
                 const product = window.BSS_B2B.products.get(+item.product_id);
                 if (product) {
@@ -69,7 +68,7 @@ export default class Runner extends Hookable {
                         value.appliedCP.discount_value
                     );
                 }
-                const priceElements = await Detector.getInstance().getOriginalPriceElements(key);
+                const priceElements = await getOriginalPriceElements(key);
                 for (const element of priceElements) {
                     element.innerHTML = window.BSS_B2B.formatMoney(`` + price);
                 }
@@ -83,13 +82,5 @@ export default class Runner extends Hookable {
                 .forEach((e) => (e.style.visibility = `visible`));
         }
         // post-hook
-    }
-
-    private runCustomerFlow() {
-        //
-    }
-
-    public async run() {
-        return Promise.allSettled([this.runPriceFlow(), this.runCustomerFlow()]);
     }
 }

@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const mode = process.env.MODE === "development" ? "development" : "production";
 
 module.exports = {
@@ -15,7 +16,8 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   output: {
     filename: 'bss-b2b.js',

@@ -1,17 +1,17 @@
-import { AsyncFunction, HookStore } from './types/interfaces';
+import { AsyncFunction, HookStore } from '@/interfaces/global';
 
 class Hookable {
-    actions: HookStore = {};
-    filters: HookStore = {};
-    statics: HookStore = {};
+    protected actions: HookStore = {};
+    protected filters: HookStore = {};
+    protected statics: HookStore = {};
 
-    setActionOptions(tag: string, options: boolean): void {
+    protected setActionOptions(tag: string, options: boolean): void {
         this.actions[tag] = this.actions[tag] || {
             options,
             callbacks: this.actions[tag].callbacks || [],
         };
     }
-    addAction(tag: string, callback: AsyncFunction, priority?: number): void {
+    protected addAction(tag: string, callback: AsyncFunction, priority?: number): void {
         this.actions[tag] = this.actions[tag] || {
             options: false,
             callbacks: [],
@@ -19,7 +19,7 @@ class Hookable {
         this.actions[tag][`callbacks`][priority] = this.actions[tag][`callbacks`][priority] || [];
         this.actions[tag][`callbacks`][priority].push(callback);
     }
-    async execAction(tag: string, ...args: any[]): Promise<any> {
+    protected async execAction(tag: string, ...args: any[]): Promise<any> {
         if (typeof this.actions[tag] !== `undefined` && this.actions[tag].callbacks.length > 0) {
             for (const priorities of this.actions[tag].callbacks) {
                 if (this.actions[tag].options) {
@@ -33,14 +33,14 @@ class Hookable {
         }
     }
 
-    addFilter(tag: string, callback: AsyncFunction, priority?: number): void {
+    protected addFilter(tag: string, callback: AsyncFunction, priority?: number): void {
         this.filters[tag] = this.actions[tag] || {
             callbacks: [],
         };
         this.filters[tag][`callbacks`][priority] = this.filters[tag][`callbacks`][priority] || [];
         this.filters[tag][`callbacks`][priority].push(callback);
     }
-    async execFilter(tag: string, value: any, ...args: any[]): Promise<any> {
+    protected async execFilter(tag: string, value: any, ...args: any[]): Promise<any> {
         if (typeof this.filters[tag] !== `undefined` && this.filters[tag].callbacks.length > 0) {
             for (const priorities of this.filters[tag].callbacks) {
                 for (const callback of priorities) {
@@ -51,14 +51,14 @@ class Hookable {
         return value;
     }
 
-    addStatic(tag: string, callback: AsyncFunction, storeId: number): void {
+    protected addStatic(tag: string, callback: AsyncFunction, storeId: number): void {
         this.statics[tag] = this.statics[tag] || {
             callbacks: [],
         };
         this.statics[tag][`callbacks`][storeId] = this.statics[tag][`callbacks`][storeId] || [];
         this.statics[tag][`callbacks`][storeId].push(callback);
     }
-    async execStatic(tag: string, value: any, ...args: any[]): Promise<any> {
+    protected async execStatic(tag: string, value: any, ...args: any[]): Promise<any> {
         const storeId = window.BSS_B2B.storeId;
         if (
             typeof this.statics[tag] !== `undefined` &&

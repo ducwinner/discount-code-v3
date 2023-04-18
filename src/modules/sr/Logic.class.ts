@@ -1,4 +1,4 @@
-import Hookable from '../../Hook.class';
-import { IModuleLogic } from '../../types/modules/sr';
+import Hookable from '@/Hookable.class';
+import { IModuleLogic } from '@/interfaces/modules/sr';
 
 export default class ModuleLogic extends Hookable implements IModuleLogic {}
