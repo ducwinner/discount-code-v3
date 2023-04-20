@@ -27,7 +27,7 @@ export default class Detector extends Hookable {
     async detectProducts(customAttr: string | null): Promise<number[]> {
         let elements: NodeListOf<HTMLElement>;
         if (customAttr) {
-            elements = await this.execFilter(`DetectProducts/CustomAttr`, elements, customAttr);
+            elements = await this.execFilter(`DetectProducts/CustomAttr`, null, customAttr);
         } else {
             elements = document.querySelectorAll<HTMLElement>(SELECTORS);
         }
@@ -59,7 +59,14 @@ export default class Detector extends Hookable {
                 continue;
             }
             const productId = element.getAttribute(`bss-b2b-product-id`);
-            if (!customAttr) {
+            if (customAttr) {
+                if (element.getAttribute(`bss-b2b-product-max-price`)) {
+                    element.parentElement.parentElement.setAttribute(`bss-b2b-product-max-price`, `true`);
+                }
+                if (element.getAttribute(`bss-b2b-product-min-price`)) {
+                    element.parentElement.parentElement.setAttribute(`bss-b2b-product-min-price`, `true`);
+                }
+            } else {
                 if (element.getAttribute(`itemprop`) === `price`) {
                     // do nothing
                 } else {
@@ -74,13 +81,6 @@ export default class Detector extends Hookable {
                     }
                 }
                 // fix for benki-brewingtools show max min price when change variant options
-            } else {
-                if (element.getAttribute(`bss-b2b-product-max-price`)) {
-                    element.parentElement.parentElement.setAttribute(`bss-b2b-product-max-price`, `true`);
-                }
-                if (element.getAttribute(`bss-b2b-product-min-price`)) {
-                    element.parentElement.parentElement.setAttribute(`bss-b2b-product-min-price`, `true`);
-                }
             }
             if (productId && productId !== `` && !check.get(productId)) {
                 check.set(productId, true);
