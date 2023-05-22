@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { QiCore } from './core';
 
 export default async function initQI(): Promise<void> {
-    window.BSS_B2B.modules.qi.logic = new ModuleLogic();
+    window.BSS_B2B.qi.utils = new QiCore();
 }

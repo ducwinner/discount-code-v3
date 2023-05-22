@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { TeCore } from './core';
 
 export default async function initTE(): Promise<void> {
-    window.BSS_B2B.modules.te.logic = new ModuleLogic();
+    window.BSS_B2B.te.utils = new TeCore();
 }

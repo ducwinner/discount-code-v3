@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { OlCore } from './core';
 
 export default async function initOL(): Promise<void> {
-    window.BSS_B2B.modules.ol.logic = new ModuleLogic();
+    window.BSS_B2B.ol.utils = new OlCore();
 }

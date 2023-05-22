@@ -1,9 +1,8 @@
-import Detector from '@/Detector.class';
-import Hookable from '@/Hookable.class';
+import Detector from '@/Detector';
+import Hookable from '@/Hookable';
 import { PriceFlowPreAction_Setup, PriceFlowPreFilter_CustomAttr } from '@/hooks/add-ons/runner';
-import { SearchProduct } from '@/interfaces/global';
-import { searchProducts } from '@/utils/common';
-import { getOriginalPriceElements } from '@/utils/dom';
+import { SearchProduct } from '@/types';
+import { getOriginalPriceElements, searchProducts } from '@/utils';
 
 export default class PriceFlow extends Hookable {
     public static instance: PriceFlow;

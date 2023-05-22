@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { CpCore } from './core';
 
 export default async function initCP(): Promise<void> {
-    window.BSS_B2B.modules.cp.logic = new ModuleLogic();
+    window.BSS_B2B.cp.utils = new CpCore();
 }

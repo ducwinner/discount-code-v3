@@ -1,4 +1,4 @@
-import Hookable from '@/Hookable.class';
+import Hookable from '@/Hookable';
 
 export default class CustomerFlow extends Hookable {
     public static instance: CustomerFlow;

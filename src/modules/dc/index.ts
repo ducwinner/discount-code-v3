@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { DcCore } from './core';
 
 export default async function initDC(): Promise<void> {
-    window.BSS_B2B.modules.dc.logic = new ModuleLogic();
+    window.BSS_B2B.dc.utils = new DcCore();
 }

@@ -4,7 +4,7 @@ export function formatMoney(cents: string, format?: string) {
     }
     let value = ``;
     const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
-    let formatString = format || window.BSS_B2B.shopData.shop.money_format || this.money_format;
+    let formatString = format || window.BSS_B2B.shopData.shop.money_format || `$\{\{amount\}\}`;
     const formatElement = [
         `<span class=money>`,
         `</span>`,

@@ -1,5 +1,5 @@
-import ModuleLogic from './Logic.class';
+import { RfCore } from './core';
 
 export default async function initRF(): Promise<void> {
-    window.BSS_B2B.modules.rf.logic = new ModuleLogic();
+    window.BSS_B2B.rf.utils = new RfCore();
 }
